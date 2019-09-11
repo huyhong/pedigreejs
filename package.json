@@ -10,19 +10,20 @@
     "grunt-contrib-uglify": "~0.5.0"
   },
   "scripts": {
-    "dev": "parcel ./js/index.html",
-    "build": "parcel ./js/index.js ./dist/pedigree.js"
+    "dev": "parcel ./docs/es6_example.html",
+    "build": "NODE_ENV=production parcel ./js/index.js --out-file pedigreejs.js"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/huyhong/pedigreejs.git"
   },
-  "main": "index.js",
+  "main": "dist/pedigreejs",
   "license": "GPL-3.0",
   "dependencies": {
-    "d3": "^5.11.0",
+    "d3": "^5.12.0",
+    "d3-hierarchy": "^1.1.8",
     "global": "^4.4.0",
     "jquery": "^3.4.1",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.4"
   }
 }

@@ -1,9 +1,9 @@
-import "./import_jquery";
-import pedigree_util from './pedigree_util';
-import pedcache from './pedcache';
-import ptree from './ptree';
+import "../js/import_jquery";
+import pedigree_util from '../js/pedigree_util';
+import pedcache from '../js/pedcache';
+import ptree from '../js/ptree';
 
-var opts
+var opts;
 
 $(document).ready(() => {
   var parent_width = $('#pedigrees').parent().width();
@@ -39,5 +39,5 @@ $(document).ready(() => {
   } else {
     opts.dataset = dataset;
   }
-  opts= ptree.build(opts);
+  opts = ptree.build(opts);
 })

@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import * as hierarchy from 'd3-hierarchy'
 // import $ from 'jquery'
 
 import io from './io'
@@ -95,7 +96,7 @@ ptree.build = function(options) {
 	};
 
 	var partners = pedigree_util.buildTree(opts, hidden_root, hidden_root)[0];
-	var root = d3.hierarchy(hidden_root);
+	var root = hierarchy(hidden_root);
 	ptree.roots[opts.targetDiv] = root;
 
 	/// get score at each depth used to adjust node separation
@@ -347,15 +348,15 @@ ptree.build = function(options) {
 
 						var dy2 = (dy1-opts.symbol_size/2-3);
 						// get path looping over node(s)
-						draw_path = function(clash, dx, dy1, dy2, parent_node, cshift) {
-							extend = function(i, l) {
-								if(i+1 < l)   //  && Math.abs(clash[i] - clash[i+1]) < (opts.symbol_size*1.25)
-									return extend(++i);
-								return i;
-							};
+						var draw_path_extend = function(i, l) {
+							if(i+1 < l)   //  && Math.abs(clash[i] - clash[i+1]) < (opts.symbol_size*1.25)
+								return draw_path_extend(++i);
+							return i;
+						};
+						var draw_path = function(clash, dx, dy1, dy2, parent_node, cshift) {
 							var path = "";
 							for(var j=0; j<clash.length; j++) {
-								var k = extend(j, clash.length);
+								var k = draw_path_extend(j, clash.length);
 								var dx1 = clash[j] - dx - cshift;
 								var dx2 = clash[k] + dx + cshift;
 								if(parent_node.x > dx1 && parent_node.x < dx2)
